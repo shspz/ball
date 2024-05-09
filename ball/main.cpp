@@ -39,7 +39,6 @@ int main()
     sBall.setOrigin(32,32);
 
 
-    /////////box2d///////////
     setWall(400,520,2000,10);
     setWall(400, 450,10,170);
     setWall(0,0,10,2000);
@@ -50,7 +49,6 @@ int main()
     shape.SetAsBox(30/SCALE,30/SCALE);
     b2BodyDef bdef;
     bdef.type=b2_dynamicBody;
-    ///players///////////////
     b2Body *pBody[2];
     for(int i=0;i<2;i++){
     bdef.position.Set(20*i,2);
@@ -67,7 +65,6 @@ int main()
     pBody[0]->GetUserData().pointer = (uintptr_t)"player1";
     pBody[1]->GetUserData().pointer = (uintptr_t)"player2";
 
-    /// ball /////////////
     bdef.position.Set(5,1);
     b2CircleShape circle;
     circle.m_radius=32/SCALE;
@@ -78,7 +75,6 @@ int main()
     fdef.density=0.2;
     b->CreateFixture(&fdef);
     b->GetUserData().pointer = (uintptr_t)"ball";
-    /////////////////////////
     
     bool onGround=0;
 
@@ -91,10 +87,9 @@ int main()
                 window.close();
         }
 
-        for(int n=0;n<2;n++) // 2 - speed
+        for(int n=0;n<2;n++)
         World.Step(1/60.f, 8, 3);
 
-        //player1 
         b2Vec2 pos = pBody[0]->GetPosition();
         b2Vec2 vel = pBody[0]->GetLinearVelocity();
 
@@ -109,7 +104,6 @@ int main()
         pBody[0]->SetLinearVelocity(vel);
 
 
-        //player2 
         pos = pBody[1]->GetPosition();
         vel = pBody[1]->GetLinearVelocity();
 
@@ -127,7 +121,6 @@ int main()
         vel = b->GetLinearVelocity();
         if (vel.Length()>15) b->SetLinearVelocity( 15/vel.Length() * vel ); 
 
-        //////////Draw///////////////
         window.draw(sBackground);
             
         for (b2Body* it = World.GetBodyList(); it != 0; it = it->GetNext())
